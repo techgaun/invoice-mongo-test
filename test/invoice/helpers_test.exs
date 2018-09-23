@@ -3,7 +3,6 @@ defmodule Invoice.HelpersTest do
 
   alias Invoice.Helpers
 
-  @tag :wipa
   test "calculate_items_amount/1 calculates proper amount" do
     items = [
       %{
