@@ -1,4 +1,4 @@
 ExUnit.start()
+Faker.start()
 
-Ecto.Adapters.SQL.Sandbox.mode(Invoice.Repo, :manual)
-
+Invoice.Repo.delete_all(Invoice.Invoices.Invoice)

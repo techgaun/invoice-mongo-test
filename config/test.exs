@@ -11,9 +11,8 @@ config :logger, level: :warn
 
 # Configure your database
 config :invoice, Invoice.Repo,
-  adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  adapter: Mongo.Ecto,
+  username: "invoice",
+  password: "invoice",
   database: "invoice_test",
-  hostname: "localhost",
-  pool: Ecto.Adapters.SQL.Sandbox
+  hostname: "localhost"
