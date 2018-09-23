@@ -7,7 +7,7 @@ defmodule Invoice.Mixfile do
       version: "0.0.1",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
+      compilers: [:phoenix, :gettext, :phoenix_swagger] ++ Mix.compilers,
       start_permanent: Mix.env == :prod,
       aliases: aliases(),
       deps: deps(),
@@ -41,6 +41,7 @@ defmodule Invoice.Mixfile do
       {:mongodb_ecto, "~> 0.2"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:phoenix_swagger, "~> 0.8"},
       {:faker, "~> 0.10", only: :test},
       {:excoveralls, "~> 0.10", only: :test},
       {:credo, "~> 0.10.0", only: [:dev, :test], runtime: false}

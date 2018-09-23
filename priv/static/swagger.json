@@ -1,0 +1,376 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/invoices/{id}/make-payment": {
+      "post": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Invoices"
+            },
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Order ID for Invoice"
+          },
+          {
+            "schema": "number",
+            "required": true,
+            "name": "amount",
+            "in": "body",
+            "description": "Amount to pay"
+          },
+          {
+            "x-example": "2018-09-23T15:33:22.000Z",
+            "schema": "string",
+            "required": false,
+            "name": "payment_date",
+            "in": "body",
+            "format": "date-time",
+            "description": "Payment Date"
+          }
+        ],
+        "operationId": "pay_invoice",
+        "description": "Make Payment for Invoice"
+      }
+    },
+    "/invoices/{id}": {
+      "put": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            },
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Order ID for Invoice"
+          }
+        ],
+        "operationId": "update_invoice",
+        "description": "Update Invoice"
+      },
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Invoice"
+            },
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Order ID for Invoice"
+          }
+        ],
+        "operationId": "get_invoice",
+        "description": "Get Single Invoice"
+      },
+      "delete": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "",
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Order ID for Invoice"
+          }
+        ],
+        "operationId": "delete_invoice",
+        "description": "Delete Invoice"
+      }
+    },
+    "/invoices": {
+      "post": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Invoices"
+            },
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "operationId": "create_invoices",
+        "description": "Create invoices"
+      },
+      "get": {
+        "tags": [
+          "Invoices"
+        ],
+        "summary": "",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Invoices"
+            },
+            "description": "OK"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "operationId": "list_invoices",
+        "description": "List invoices"
+      }
+    }
+  },
+  "info": {
+    "version": "0.1",
+    "title": "Invoice Api"
+  },
+  "host": "localhost:4000",
+  "definitions": {
+    "Items": {
+      "type": "array",
+      "title": "Invoice Items",
+      "items": {
+        "$ref": "#/definitions/Item"
+      },
+      "description": "List of Invoice Items"
+    },
+    "Item": {
+      "type": "object",
+      "title": "Invoice Item",
+      "required": [
+        "price",
+        "quantity",
+        "item_name"
+      ],
+      "properties": {
+        "quantity": {
+          "type": "integer",
+          "description": "Quantity of item"
+        },
+        "price": {
+          "type": "number",
+          "description": "Price per unit of item"
+        },
+        "item_name": {
+          "type": "string",
+          "description": "Item Name"
+        }
+      },
+      "example": {
+        "quantity": 20,
+        "price": 20.5,
+        "name": "Mouse"
+      },
+      "description": "An Item"
+    },
+    "Invoices": {
+      "type": "object",
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "meta": {
+          "type": "object",
+          "properties": {
+            "total-pages": {
+              "type": "integer",
+              "description": "The total number of pages available"
+            },
+            "total-count": {
+              "type": "integer",
+              "description": "The total number of items available"
+            }
+          }
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "Link to this page of results"
+            },
+            "prev": {
+              "type": "string",
+              "description": "Link to the previous page of results"
+            },
+            "next": {
+              "type": "string",
+              "description": "Link to the next page of results"
+            },
+            "last": {
+              "type": "string",
+              "description": "Link to the last page of results"
+            },
+            "first": {
+              "type": "string",
+              "description": "Link to the first page of results"
+            }
+          }
+        },
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/InvoiceResource"
+          },
+          "description": "Content with [InvoiceResource](#invoiceresource) objects"
+        }
+      },
+      "description": "A page of [InvoiceResource](#invoiceresource) results"
+    },
+    "InvoiceResource": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The JSON-API resource type"
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {}
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "The link to invoice resource"
+            }
+          }
+        },
+        "id": {
+          "type": "string",
+          "description": "The JSON-API resource ID"
+        },
+        "attributes": {
+          "type": "object",
+          "required": [
+            "customer_name"
+          ],
+          "properties": {
+            "status": {
+              "type": "string",
+              "description": "One of pending and paid"
+            },
+            "payment_due_date": {
+              "type": "string",
+              "description": "Payment Due Date in ISO8601 Format"
+            },
+            "payment_date": {
+              "type": "string",
+              "description": "Payment Due Date in ISO8601 Format"
+            },
+            "order_id": {
+              "type": "string",
+              "description": "Order ID for Invoice"
+            },
+            "items": {
+              "description": "List of items the invoice is for",
+              "$ref": "#/definitions/Items"
+            },
+            "customer_name": {
+              "type": "string",
+              "description": "Customer Name"
+            },
+            "customer_mobile": {
+              "type": "string",
+              "description": "Customer Mobile Phone"
+            }
+          }
+        }
+      },
+      "description": "An invoice object."
+    },
+    "Invoice": {
+      "type": "object",
+      "required": [
+        "data"
+      ],
+      "properties": {
+        "links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "type": "string",
+              "description": "the link that generated the current response document."
+            }
+          }
+        },
+        "included": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "The JSON-API resource type"
+              },
+              "id": {
+                "type": "string",
+                "description": "The JSON-API resource ID"
+              }
+            }
+          },
+          "description": "Included resources"
+        },
+        "data": {
+          "$ref": "#/definitions/InvoiceResource"
+        }
+      },
+      "description": "A JSON-API document with a single [InvoiceResource](#invoiceresource) resource"
+    }
+  },
+  "basePath": "/api"
+}

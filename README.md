@@ -15,10 +15,22 @@ use invoice_dev
 db.createUser({ user: "invoice" , pwd: "invoice", roles: ["readWrite", "dbAdmin"]})
 ```
 
+### API Documentation
+
+- Access the API documentation at http://localhost:4000/apidocs
+- If you change swagger definition, run `mix phx.swagger.generate` to regenerate swagger.json definition
+
+![Api Doc](priv/static/apidoc.png "Swagger Api Doc")
+
+### Test and Coverage
+
+```
+mix coveralls.html
+```
+
 To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * Start Phoenix endpoint with `mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
